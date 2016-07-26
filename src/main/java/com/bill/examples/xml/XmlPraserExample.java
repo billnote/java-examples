@@ -47,13 +47,15 @@ public class XmlPraserExample {
 			e.printStackTrace();
 		}
 
-		performanceTest();
+		for (int i = 0; i < 10; i++) {
+			performanceTest();
+		}
 	}
 
 	public static void performanceTest() {
 		String vast4XSDPath = basePath + "vast_v4.0_modified.xsd";
 		String adXml = basePath + "vast-ad4.xml";
-		int runtimes = 10000;
+		int runtimes = 100000;
 		try {
 			Validator validator = createValidator(vast4XSDPath);
 			long start = System.currentTimeMillis();
