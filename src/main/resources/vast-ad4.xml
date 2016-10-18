@@ -19,11 +19,21 @@
 					<UniversalAdId idRegistry="UCR001" idValue="unknown">FUCR000001
 					</UniversalAdId> <!-- 1 required -->
 					<Linear skipoffset="00:00:05"> <!-- 0 or 1 required -->
+						<Icons> <!-- 0 or 1 -->
+							<Icon program="Mplus" width="25" height="25" xPosition="5" yPosition="5"
+								duration="00:00:05" offset="00:00:01" apiFramework="mraid"> <!-- 1+ required -->
+								<IconClicks>
+									<IconClickThrough><![CDATA[http://ad.server.com]]></IconClickThrough> <!-- 0 or 1 -->
+									<IconClickTracking><![CDATA[http://ad.server.com/icon/click.htm]]></IconClickTracking>
+								</IconClicks>
+								<IconViewTracking><![CDATA[http://ad.server.com/icon/tracking.htm]]></IconViewTracking> <!-- 0+ -->
+							</Icon>
+						</Icons>
 						<Duration>00:00:14.234</Duration>  <!-- 1 required -->
 						<TrackingEvents> <!-- 0 or 1 -->
 							<Tracking event="start" offset="00:00:14"><![CDATA[http://ad.server.com/impression/imp.htm?et=start]]></Tracking> <!-- 0+ -->
 						</TrackingEvents>
-						<AdParameters xmlEncoded="false">Metadata for the ad
+						<AdParameters xmlEncoded="false">Metadata for the ad1
 						</AdParameters>
 						<VideoClicks> <!-- 0 or 1 optional -->
 							<ClickThrough id="1"><![CDATA[http://ad.server.com/landingpage.html]]></ClickThrough> <!-- 0 or 1 optional -->
@@ -31,22 +41,12 @@
 							<CustomClick id="1"><![CDATA[http://ad.server.com/custom/clk.htm]]></CustomClick>
 						</VideoClicks>
 						<MediaFiles>  <!-- 1 required -->
-							<Mezzanine><![CDATA[http://ad.server.com/mediafiles/mezzanine/001.mp4]]>
-							</Mezzanine>  <!-- 0 or 1 required -->
 							<MediaFile delivery="streaming" type="video/mp4" width="1280"
 								height="720" codec="RFC 4281" id="MF001" bitrate="720" scalable="true"
 								maintainAspectRatio="true" apiFramework="vpaid"><![CDATA[http://ad.server.com/mediafiles/001.mp4]]></MediaFile>  <!-- 1+ required -->
+							<Mezzanine><![CDATA[http://ad.server.com/mediafiles/mezzanine/001.mp4]]>
+							</Mezzanine>  <!-- 0 or 1 required -->
 						</MediaFiles>
-						<Icons> <!-- 0 or 1 -->
-							<Icon program="Mplus" width="25" height="25" xPosition="5" yPosition="5"
-								duration="00:00:05" offset="00:00:01" apiFramework="mraid"> <!-- 1+ required -->
-								<IconClicks>
-									<IconClickTracking><![CDATA[http://ad.server.com/icon/click.htm]]></IconClickTracking>
-									<IconClickThrough><![CDATA[http://ad.server.com]]></IconClickThrough> <!-- 0 or 1 -->
-								</IconClicks>
-								<IconViewTracking><![CDATA[http://ad.server.com/icon/tracking.htm]]></IconViewTracking> <!-- 0+ -->
-							</Icon>
-						</Icons>
 						<InteractiveCreativeFile type="video/mp4"
 							apiFramework="vpaid"><![CDATA[http://ad.server.com/creativefile/001.mp4]]></InteractiveCreativeFile>
 					</Linear>

@@ -11,8 +11,12 @@ import javax.xml.validation.Validator;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.SAXWriter;
+import org.dom4j.tree.DefaultCDATA;
+import org.dom4j.tree.DefaultElement;
 import org.iso_relax.verifier.Verifier;
 import org.iso_relax.verifier.VerifierConfigurationException;
 import org.iso_relax.verifier.VerifierFactory;
@@ -27,7 +31,7 @@ public class XmlPraserExample {
 	public static void main(String[] args)
 			throws SAXException, DocumentException, VerifierConfigurationException, IOException {
 		String vast3XSDPath = basePath + "vast3.xsd";
-		String vast4XSDPath = basePath + "vast_v4.0_modified.xsd";
+		String vast4XSDPath = basePath + "vast4.xsd";
 
 		String adXml = basePath + "vast-ad3.xml";
 		System.out.println(validateXMLSchema(vast3XSDPath, adXml));
@@ -39,6 +43,18 @@ public class XmlPraserExample {
 		try {
 			Document document = reader.read(adXml);
 			System.out.println(validate(document, vast4XSDPath));
+			
+			String xPath = "/VAST/Ad/InLine/Creatives/Creative/Linear/TrackingEvents";
+			Element element = new DefaultElement("Tracking");
+			element.add(new DefaultCDATA("http://www.mpulstech.cn/add/imp.htm"));
+			element.addAttribute("event", "start");
+			addNode(document, xPath, element);
+			
+			Node node = document.selectSingleNode("/VAST/@version");
+			System.out.println(node.getText());
+			
+			System.out.println(document.asXML());
+			
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,9 +63,18 @@ public class XmlPraserExample {
 			e.printStackTrace();
 		}
 
-		for (int i = 0; i < 10; i++) {
-			performanceTest();
-		}
+//		for (int i = 0; i < 10; i++) {
+//			performanceTest();
+//		}
+		
+	}
+	
+	public static void addNode(Document document, String xPath, Element element) {
+		Node node = document.selectSingleNode(xPath);
+		 if ( node instanceof Element ) {
+			 Element parentElement = (Element) node;
+			 parentElement.add(element);
+		 }
 	}
 
 	public static void performanceTest() {
@@ -99,6 +124,9 @@ public class XmlPraserExample {
 		return schema.newValidator();
 	}
 
+	
+	
+	
 	public static Verifier createVerifier(String xsdPath)
 			throws VerifierConfigurationException, SAXException, IOException {
 		// (1) use autodetection of schemas

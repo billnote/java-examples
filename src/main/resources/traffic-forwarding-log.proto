@@ -1,0 +1,72 @@
+option java_package = "com.bill.examples.proto";
+option java_outer_classname = "TrafficForwardingLogBuilder";
+
+message TrafficForwardingLog {
+    required int32 version = 1;
+    required string serverId = 2;
+    required int64 now = 3;
+    required int64 domainId = 4;
+    required int64 sspId = 5;
+    required int64 dspId = 6;
+    required int32 timeConsuming = 7;
+    required int32 statusCode = 8;
+    required int32 httpCode = 9;
+
+    message Geo {
+        required int64 ip = 1;
+        required int32 ispType = 2;
+        required int32 countryId = 3;
+        required int32 stateId = 4;
+        required int32 cityId = 5;
+    }
+    required Geo geo = 10;
+
+    message Device {
+        optional string imei = 1;
+        optional string androidId = 2;
+        optional string mac = 3;
+        optional string idfa = 4;
+        optional string customizeId = 5;
+        optional int32 osTypeId = 6;
+        optional int32 osVersionId = 7;
+        optional int32 brandId = 8;
+        optional int32 modelId = 9;
+        optional int32 resolutionId = 10;
+        optional int32 connectionType = 11;
+    }
+    optional Device device = 11;
+
+    message Bid {
+        required int64 adSpaceId = 1;
+        required string bidId = 2;
+        required string impId = 3;
+        optional string seatId = 4;
+        
+        message Trading {
+             optional int64 bidFloor = 1;
+             optional int32 bidFloorcur = 2;
+             optional int64 bidPrice = 3;
+             optional int64 finalPrice = 4; 
+        }
+        required Trading trading = 5;
+        
+        message Pmp {
+            required int64 sellCampaignId = 1;
+            message Deal {
+                // value is sell strategy id
+                required int64 dealId = 1;
+                optional string advertiserId = 2;
+                optional string cid = 3;
+                optional string crid = 4;
+				optional Trading trading = 5; 
+                optional bool winner = 6;
+            }
+            repeated Deal deal = 2;
+        }
+        
+        repeated Pmp pmp = 6;
+        required int32 nbr = 7;
+        required int64 invaildBid = 8;
+    }
+    required Bid bid = 12;
+}

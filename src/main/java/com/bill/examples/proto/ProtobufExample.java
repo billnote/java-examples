@@ -1,6 +1,13 @@
 package com.bill.examples.proto;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.bill.examples.proto.BidResponseBuilder.BidResponse;
+import com.bill.examples.proto.TrafficForwardingLogBuilder.TrafficForwardingLog;
 import com.google.protobuf.TextFormat;
 import com.google.protobuf.TextFormat.ParseException;
 
@@ -34,7 +41,24 @@ public class ProtobufExample {
 		BidResponse.Builder builder2 = BidResponseBuilder.BidResponse.newBuilder();
 		TextFormat.getParser().merge(builder.build().toString(), builder2);
 		BidResponse response = builder2.build();
-		
+
 		System.out.println(response.getBidid());
+
+		try (InputStream is = new FileInputStream(new File("/home/bill.huang/tmp/forwarding.201607271803.0"))) {
+			while (true) {
+				TrafficForwardingLog log = TrafficForwardingLog.parseDelimitedFrom(is);
+				if (null == log) {
+					break;
+				} else {
+					System.out.println(log);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

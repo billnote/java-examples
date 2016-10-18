@@ -5,6 +5,7 @@ class Env {
 }
 
 public class MethodEnvExample {
+	static int i;
 	public static void  main(String[] args) {
 		Long id = 1l;
 		Env env = new Env();
@@ -12,6 +13,19 @@ public class MethodEnvExample {
 		
 		testEnv(env, id);
 		System.out.println("env: " + env.id + "; id:" + id);
+		
+		
+		testOjb(i);
+	}
+	
+	
+	private static void testOjb(Object... values) {
+		StringBuilder sb = new StringBuilder();
+		for (Object object : values) {
+			sb.append(object).append("|");
+		}
+		
+		System.out.println(sb);
 	}
 	
 	private static void testEnv(Env env, Long id) {
