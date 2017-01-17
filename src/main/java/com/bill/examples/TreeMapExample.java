@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.NavigableMap;
 import java.util.TreeMap;
 
 public class TreeMapExample {
@@ -95,7 +94,7 @@ public class TreeMapExample {
 
 	public static void main(String[] args) {
 		String priceTreeStr = "100:100,101,201,400:200,401:150,500:300,501:400";
-		String pathsPrice = "101-201-500:700,101-200-501:900";
+		String pathsPrice = "101-201-500:700,101-200-501:900,101-201:1000";
 
 		initPriceTree(priceTreeStr);
 		initPriceMap(pathsPrice);
@@ -119,8 +118,5 @@ public class TreeMapExample {
 		keys = new long[] { 501l };
 		price = analyzePrice(keys);
 		System.out.println(String.format("Price:%s", price));
-
-		NavigableMap<Long, Integer> subTree = priceTree.tailMap(101l, false);
-		System.out.println(subTree.size());
 	}
 }
